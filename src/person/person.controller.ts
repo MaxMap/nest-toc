@@ -12,12 +12,14 @@ import {
   UseFilters,
   HttpException,
   HttpStatus,
+  Next,
 } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { PersonFilter } from './person.filter';
+import { NextFunction } from 'express';
 
 @Controller('api/person')
 export class PersonController {
@@ -42,6 +44,19 @@ export class PersonController {
   query(@Query('name') name: string, @Query('age') age: number) {
     return `received: name=${name},age=${age}`;
   }
+
+  @Get('eee')
+    eee(@Next() next: NextFunction) {
+        console.log('handler1');
+        next();
+        return '111'
+    }
+
+    @Get('eee')
+    eee2() {
+        console.log('handler2');
+        return 'eee';
+    }
 
   @Get(':id')
   @UseFilters(PersonFilter)
