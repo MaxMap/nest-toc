@@ -9,11 +9,15 @@ import {
   Query,
   UseInterceptors,
   UploadedFiles,
+  UseFilters,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { PersonService } from './person.service';
 import { CreatePersonDto } from './dto/create-person.dto';
 import { UpdatePersonDto } from './dto/update-person.dto';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
+import { PersonFilter } from './person.filter';
 
 @Controller('api/person')
 export class PersonController {
@@ -40,7 +44,9 @@ export class PersonController {
   }
 
   @Get(':id')
+  @UseFilters(PersonFilter)
   urlParm(@Param('id') id: string) {
+    throw new HttpException('xxxx',HttpStatus.BAD_REQUEST)
     return `received: id=${id}`;
   }
 
