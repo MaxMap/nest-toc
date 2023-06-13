@@ -17,9 +17,9 @@ export class AppController {
   ) { } */
   // 方式四 标注在类或者方法参数上，表示该参数可选，不是必需的
   @Optional()
-  constructor(@Optional() private appService:AppService) {
-    
-  })
+  @Inject('Guang')
+  private readonly guang: Record<string,any> 
+  constructor(@Optional() private appService:AppService) {}
 
   @Get()
   getHello(): string {
